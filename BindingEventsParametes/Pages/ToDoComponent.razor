@@ -3,6 +3,7 @@
     @foreach (var task in Tasks)
     {
         <li class="list-group-item form-check form-check-inline">
+            <button class="btn btn-danger" @onclick="(()=> RemoveTask(task))">Delete</button>
             <label class="form-check-label" for="inlineCheckBox1">@task.TaskDescription</label>
         </li>
     }
@@ -12,6 +13,14 @@
 
     [Parameter]
     public List<TaskItem> Tasks { get; set; }
+    [Parameter]
+    public EventCallback<TaskItem> RemoveTaskChanged { get; set; }
+
+    private async Task RemoveTask(TaskItem taskItem)
+    {
+        await RemoveTaskChanged.InvokeAsync(taskItem);
+    }
+
 
     public void AddNewtask(TaskItem taskItem)
     {

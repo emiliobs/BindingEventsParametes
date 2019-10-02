@@ -14,7 +14,7 @@
 
 <br />
 
-<ToDoComponent Tasks="@tasks" @ref="toDoComponent"></ToDoComponent>
+<ToDoComponent Tasks="@tasks" @ref="toDoComponent" RemoveTaskChanged="RemoveTask"></ToDoComponent>
 
 
 @code {
@@ -23,6 +23,11 @@
     //Htis method will run whe the cont rol is load:
     private ToDoComponent toDoComponent;
     private string newTaskDescription;
+
+    private void RemoveTask(TaskItem taskItem)
+    {
+        tasks.Remove(taskItem);
+    }
 
     private void AddTask()
     {
