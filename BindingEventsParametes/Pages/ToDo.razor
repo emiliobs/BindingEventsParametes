@@ -1,6 +1,17 @@
 ﻿@page "/ToDo"
 <h3>ToDo</h3>
+<hr />
+<label for="Summary">Theme Color:</label>
+<select class="form-control" @bind="@SelectedColor">
+    @foreach (var option in options)
+    {
+        <option value="@option">
+            @option
+        </option>
+    }
+</select>
 <br />
+
 <div class="container">
     <div class="row">
         <div class="col">
@@ -13,11 +24,20 @@
 </div>
 
 <br />
+<CascadingValue Value="@SelectedColor" Name="ThemeColor">
 
-<ToDoComponent Tasks="@tasks" @ref="toDoComponent" RemoveTaskChanged="RemoveTask"></ToDoComponent>
-
+    <ToDoComponent Tasks="@tasks" @ref="toDoComponent" RemoveTaskChanged="RemoveTask"></ToDoComponent>
+</CascadingValue>
+<br />
 
 @code {
+
+   
+
+
+    public string SelectedColor { get; set; } = "Red";
+    List<string> options = new List<string>() { "Green", "Red", "Blue" };
+
 
     private List<TaskItem> tasks = new List<TaskItem>();
     //Htis method will run whe the cont rol is load:
