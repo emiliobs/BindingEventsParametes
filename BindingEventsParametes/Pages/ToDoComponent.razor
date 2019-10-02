@@ -13,4 +13,9 @@
     [Parameter]
     public List<TaskItem> Tasks { get; set; }
 
+    public void AddNewtask(TaskItem taskItem)
+    {
+        Tasks.Add(taskItem);
+    }
+
 }
