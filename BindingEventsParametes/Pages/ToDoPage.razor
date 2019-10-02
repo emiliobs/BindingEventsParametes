@@ -1,0 +1,72 @@
+﻿@page "/ToDoPage"
+<h3>To Do Page</h3>
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <input  class="form-control" placeholder="Add a Task." @bind-value="@newTaskDescription"/>
+        </div>
+        <div class="col">
+            <button class="btn btn-primary" type="button" @onclick="@AddTask">Add Task</button>
+        </div>
+    </div>
+</div>
+<br />
+<p>
+    Tasks: <b>@(tasks.Count())</b>
+    Completed:
+    <b>@(tasks.Where(t => t.IsComplete == true).Count())</b>
+</p>
+<br />
+<ul class="list-group">
+    @foreach (var task in tasks)
+    {
+        <li @key="task" class="list-group-item form-check-inline">
+            <button type="button" class="btn btn-danger" @onclick="(() => Removetask(task))">Delete</button>
+            <input  type="checkbox" class="form-check-input" @bind-value="task.IsComplete"/>
+            <label class="form-check-label" for="inlineCheckbox1">@task.TaskDescription</label>
+        </li>
+       
+    }
+</ul>
+<br />
+
+@code {
+
+    private String newTaskDescription;
+
+    public void Removetask(TaskItem taskItem)
+    {
+        tasks.Remove(taskItem);
+    }
+
+    private void AddTask()
+    {
+        if (!string.IsNullOrWhiteSpace(newTaskDescription))
+        {
+            var newTask = new TaskItem();
+
+            newTask.TaskDescription = newTaskDescription;
+            newTask.IsComplete = false;
+
+            tasks.Add(newTask);
+            newTaskDescription = string.Empty;
+
+        }
+    }
+
+    //Collection to hold all the task
+    private List<TaskItem> tasks = new List<TaskItem>();
+    //Htis method will run whe the cont rol is load:
+
+    protected  override void OnInitialized()
+    {
+        //add a task
+        tasks.Add(new TaskItem()
+        {
+            TaskDescription = "Task One",
+            IsComplete = false,
+        });
+    }
+
+}
