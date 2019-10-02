@@ -1,0 +1,16 @@
+﻿<h2>Component comsumed by a parent component.</h2>
+<ul class="list-group"> 
+    @foreach (var task in Tasks)
+    {
+        <li class="list-group-item form-check form-check-inline">
+            <label class="form-check-label" for="inlineCheckBox1">@task.TaskDescription</label>
+        </li>
+    }
+</ul>
+
+@code {
+
+    [Parameter]
+    public List<TaskItem> Tasks { get; set; }
+
+}
